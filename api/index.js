@@ -11,13 +11,24 @@ const app = express();
 // Connect DB
 connectDB();
 
-app.use(cors());
+// ✅ CORS configuration (FIX)
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://online-course-ten-mauve.vercel.app"
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true
+  })
+);
+
 app.use(express.json());
 
 // Routes
 app.use("/api/auth", authRoutes);
 
-// Default route
+// Health check
 app.get("/", (req, res) => {
   res.send("🚀 API is running on Vercel...");
 });
