@@ -8,7 +8,13 @@ dotenv.config();
 connectDB();
 
 const app = express();
-app.use(cors());
+// Restrict CORS to the deployed frontend domain
+app.use(
+  cors({
+    origin: ["https://online-course-ten-mauve.vercel.app"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // Routes
